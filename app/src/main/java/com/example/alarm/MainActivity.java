@@ -1,23 +1,34 @@
 package com.example.alarm;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlarmManager;
-import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    // drawer layout 변수
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    Toolbar toolbar;
 
     // 알람 시간
     private Calendar calendar;
@@ -28,15 +39,49 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /*drawer layout*/
+        //Hooks
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        toolbar = findViewById(R.id.toolbar);
+
+        //Tool bar
+        setSupportActionBar(toolbar);
+
+        //Navigation menu
+        navigationView.bringToFront();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+        /*alarm*/
         this.calendar = Calendar.getInstance();
         // 현재 날짜 표시
         displayDate();
 
         this.timePicker = findViewById(R.id.timePicker);
 
-        findViewById(R.id.btnCalendar).setOnClickListener(mClickListener);
         findViewById(R.id.btnRegist).setOnClickListener(mClickListener);
         findViewById(R.id.btnUnregist).setOnClickListener(mClickListener);
+    }
+
+    /*뒤로 가기 버튼으로 드로어 네비게이션 닫기*/
+    @Override
+    public void onBackPressed() {
+
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        return true;
     }
 
     /* 날짜 표시 */
@@ -45,37 +90,13 @@ public class MainActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.txtDate)).setText(format.format(this.calendar.getTime()));
     }
 
-    /* DatePickerDialog 호출 */
-    private void showDatePicker() {
-        DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                // 알람 날짜 설정
-                calendar.set(Calendar.YEAR, year);
-                calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DATE, dayOfMonth);
-
-                // 날짜 표시
-                displayDate();
-            }
-        }, this.calendar.get(Calendar.YEAR), this.calendar.get(Calendar.MONTH), this.calendar.get(Calendar.DAY_OF_MONTH));
-
-        dialog.show();
-    }
-
     /* 알람 등록 */
 
-    private void setAlarm() {
+    private void Regist() {
         // 알람 시간 설정
         this.calendar.set(Calendar.HOUR_OF_DAY, this.timePicker.getHour());
         this.calendar.set(Calendar.MINUTE, this.timePicker.getMinute());
         this.calendar.set(Calendar.SECOND, 0);
-
-        // 현재일보다 이전이면 등록 실패
-        if (this.calendar.before(Calendar.getInstance())) {
-            Toast.makeText(this, "알람시간이 현재시간보다 이전일 수 없습니다.", Toast.LENGTH_LONG).show();
-            return;
-        }
 
         // Receiver 설정
         Intent intent = new Intent(this, AlarmReceiver.class);
@@ -95,19 +116,16 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.btnCalendar:
-                    // 달력
-                    showDatePicker();
-
-                    break;
 
                 case R.id.btnRegist:
                     // 알람 등록
-                    setAlarm();
+                    Regist();
 
                     break;
+
 
             }
         }
     };
+
 }
