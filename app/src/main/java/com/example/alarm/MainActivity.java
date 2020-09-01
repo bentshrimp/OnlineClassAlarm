@@ -48,13 +48,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Tool bar
         setSupportActionBar(toolbar);
 
-        //Navigation menu
+        //Navigation Drawer menu
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        navigationView.setCheckedItem(R.id.nav_alarm);
 
         /*alarm*/
         this.calendar = Calendar.getInstance();
@@ -79,8 +80,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    /*현재 네비게이션 메뉴 선택*/
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
+    {
+        switch (menuItem.getItemId()){
+            case R.id.nav_alarm:
+                break;
+
+            case R.id.nav_setting:
+                Intent intent = new Intent(MainActivity.this, Setting.class);
+                startActivity(intent);
+                break;
+
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -120,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.btnRegist:
                     // 알람 등록
                     Regist();
-
                     break;
 
 
