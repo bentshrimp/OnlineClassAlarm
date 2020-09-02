@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static android.app.AlarmManager.INTERVAL_DAY;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     // drawer layout 변수
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // 알람 시간
     private Calendar calendar;
     private TimePicker timePicker;
+    private PendingIntent alarmIntent;
+    private AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void Regist() {
         // 알람 시간 설정
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
         this.calendar.set(Calendar.HOUR_OF_DAY, this.timePicker.getHour());
         this.calendar.set(Calendar.MINUTE, this.timePicker.getMinute());
         this.calendar.set(Calendar.SECOND, 0);
@@ -117,14 +124,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // 알람 설정
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, this.calendar.getTimeInMillis(), pendingIntent);
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        if (calendar.before(Calendar.getInstance())){
+            calendar.add(Calendar.DATE, 1);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            }
+            else {
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY, alarmIntent);
+            }
+        }
+        else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            }
+            else {
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY, alarmIntent);
+            }
+        }
 
         // Toast 보여주기 (알람 시간 표시)
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        Toast.makeText(this, "Alarm : " + format.format(calendar.getTime()), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Alarm : " + format.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
     }
 
+    private void Unregist() {
+        Intent intent = new Intent (this,AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        alarmManager.cancel(pendingIntent);
+
+        //Toast 보여주기
+        Toast.makeText(this, "알람이 해지되었습니다.", Toast.LENGTH_SHORT).show();
+    }
 
     View.OnClickListener mClickListener = new View.OnClickListener() {
         @Override
@@ -136,9 +168,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Regist();
                     break;
 
+                case R.id.btnUnregist:
+                    Unregist();
+                    break;
 
             }
         }
     };
-
 }
