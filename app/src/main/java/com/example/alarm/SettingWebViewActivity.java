@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.JsPromptResult;
@@ -44,7 +45,9 @@ public class SettingWebViewActivity extends AppCompatActivity {
         storeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 CookieManager.getInstance().flush();
+
                 @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = getSharedPreferences("school", Context.MODE_PRIVATE).edit();
                 editor.putString("attend_url", webView.getUrl());
                 editor.apply();
@@ -54,6 +57,30 @@ public class SettingWebViewActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+
+
+    public class myWebClient extends WebViewClient {
+        int processNum = -1;
+        SharedPreferences.Editor editor = getSharedPreferences("school", Context.MODE_PRIVATE).edit();
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            processNum++;
+            switch (processNum){
+                case 1 :
+                    editor.putString("mySchool",url);
+                    editor.apply();
+                    break;
+
+                case 2:
+                    editor.putString("myLogin",url);
+                    editor.apply();
+                    break;
+            }
+        }
     }
 
     public static class myWebChromeClient extends WebChromeClient {
@@ -73,14 +100,6 @@ public class SettingWebViewActivity extends AppCompatActivity {
         public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
             result.confirm();
             return true;
-        }
-    }
-
-    public class myWebClient extends WebViewClient {
-
-        @Override
-        public void onPageFinished(WebView view, String url) {
-            super.onPageFinished(view, url);
         }
     }
 

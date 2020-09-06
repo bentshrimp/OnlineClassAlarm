@@ -65,7 +65,6 @@ public class SettingsFragment extends Fragment {
                     editor.putString("comment",commentStr);
                     editor.apply();
                     Toast.makeText(context, "저장성공", LENGTH_SHORT).show();
-                    //Todo:메인화면으로 나가기 추가
                 }
             }
         });

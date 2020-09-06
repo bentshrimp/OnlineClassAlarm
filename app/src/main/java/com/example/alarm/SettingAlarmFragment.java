@@ -38,12 +38,16 @@ public class SettingAlarmFragment extends Fragment {
 
     Context context;
 
+    SharedPreferences sharedPrefer;
+    SharedPreferences.Editor editor;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
     }
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +62,9 @@ public class SettingAlarmFragment extends Fragment {
 
         this.timePicker = viewGroup.findViewById(R.id.timePicker);
 
+        editor = context.getSharedPreferences("school", Context.MODE_PRIVATE).edit();
+        sharedPrefer = context.getSharedPreferences("school", Context.MODE_PRIVATE);
+
         Button registerButton = viewGroup.findViewById(R.id.btnRegist);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +77,13 @@ public class SettingAlarmFragment extends Fragment {
         unRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                unRegister();
+
+                if (sharedPrefer.getString("alarm_time", "").equals("")){
+                    Toast.makeText(context, "해지 할 알람이 없음", Toast.LENGTH_SHORT).show();
+                }else{
+                    unRegister();
+                }
+
             }
         });
         return viewGroup;
@@ -92,8 +105,7 @@ public class SettingAlarmFragment extends Fragment {
         calendar.set(Calendar.MINUTE, this.timePicker.getMinute());
         calendar.set(Calendar.SECOND, 0);
 
-        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = context.getSharedPreferences("school", Context.MODE_PRIVATE).edit();
-        editor.putString("alarm_time", timePicker.getHour()+" : "+timePicker.getMinute());
+        editor.putString("alarm_time", timePicker.getHour()+"시 "+timePicker.getMinute()+"분");
         editor.apply();
 
         // Receiver 설정
@@ -126,11 +138,13 @@ public class SettingAlarmFragment extends Fragment {
     }
 
     private void unRegister() {
-        Intent intent = new Intent (context,AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent (context.getApplicationContext(), AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        editor.putString("alarm_time", "");
+        editor.apply();
 
         alarmManager.cancel(pendingIntent);
-
         //Toast 보여주기
         Toast.makeText(getContext(), "알람이 해지되었습니다.", Toast.LENGTH_SHORT).show();
     }

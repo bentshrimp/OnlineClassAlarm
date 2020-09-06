@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">alarm</string>
+    <string name="app_name">온클 출석 도우미</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,8 +13,8 @@
     </style>
 
     <style name="layout">
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
 
 </resources>

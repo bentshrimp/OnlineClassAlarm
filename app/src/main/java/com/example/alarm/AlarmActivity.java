@@ -1,6 +1,7 @@
 package com.example.alarm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 
@@ -21,8 +21,6 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 public class AlarmActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
-
-    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +41,39 @@ public class AlarmActivity extends AppCompatActivity {
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                close();
+                Intent intent = new Intent(AlarmActivity.this, WebViewActivity.class);
+                startActivity(intent);
+                mediaPlayerclose();
             }
         });
 
+        addAd();
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        AudioManager mAudioManager = (AudioManager)getSystemService(AUDIO_SERVICE);//선언 후
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP :
+
+
+                mAudioManager.setStreamVolume(AudioManager.STREAM_RING,
+
+                        (int)(mAudioManager.getStreamMaxVolume(AudioManager.STREAM_RING) * 1),
+
+                        AudioManager.FLAG_PLAY_SOUND); // * 0.90 이 부분의 숫자에 맞춰 볼륨이 바뀝니다. (*0.25 이면 25%의 볼륨)
+
+
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN: // ring volume down
+                mAudioManager.setStreamVolume(AudioManager.STREAM_RING,
+
+                        (int)(mAudioManager.getStreamMaxVolume(AudioManager.STREAM_RING) * 0.25),
+
+                        AudioManager.FLAG_PLAY_SOUND); return true;
+            case KeyEvent.KEYCODE_BACK:
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -61,7 +88,7 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     /* 알람 종료 */
-    private void close() {
+    private void mediaPlayerclose() {
         if (this.mediaPlayer.isPlaying()) {
             this.mediaPlayer.stop();
             this.mediaPlayer.release();
@@ -71,7 +98,7 @@ public class AlarmActivity extends AppCompatActivity {
         finish();
     }
 
-    public void addAd(ViewGroup viewGroup){
+    public void addAd(){
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -79,7 +106,7 @@ public class AlarmActivity extends AppCompatActivity {
             }
         });
 
-        mAdView = viewGroup.findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
