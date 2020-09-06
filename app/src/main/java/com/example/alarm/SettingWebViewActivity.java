@@ -24,7 +24,6 @@ public class SettingWebViewActivity extends AppCompatActivity {
     WebView webView;
 
     @SuppressLint("SetJavaScriptEnabled")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

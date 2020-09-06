@@ -2,10 +2,12 @@ package com.example.alarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -31,6 +33,14 @@ public class SettingAlarmFragment extends Fragment {
     private TimePicker timePicker;
     private PendingIntent alarmIntent;
     private AlarmManager alarmManager;
+
+    Context context;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,11 +91,11 @@ public class SettingAlarmFragment extends Fragment {
         this.calendar.set(Calendar.SECOND, 0);
 
         // Receiver 설정
-        Intent intent = new Intent(getActivity(), AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(context, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // 알람 설정
-        alarmManager = (AlarmManager) Objects.requireNonNull(getActivity()).getSystemService(ALARM_SERVICE);
+        alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         if (calendar.before(Calendar.getInstance())){
             calendar.add(Calendar.DATE, 1);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -106,12 +116,12 @@ public class SettingAlarmFragment extends Fragment {
 
         // Toast 보여주기 (알람 시간 표시)
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        Toast.makeText(getContext(), "Alarm : " + format.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Alarm : " + format.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
     }
 
     private void unRegister() {
-        Intent intent = new Intent (getActivity(),AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent (context,AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         alarmManager.cancel(pendingIntent);
 

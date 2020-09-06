@@ -24,7 +24,7 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Intent intent1 = new Intent(this, WebViewActivity.class);
+        Intent intent1 = new Intent(this, AlarmActivity.class);
         startActivity(intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         return super.onStartCommand(intent, flags, startId);
 

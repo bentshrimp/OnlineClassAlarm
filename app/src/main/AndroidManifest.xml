@@ -2,11 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.alarm">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+
 
     <application
         android:allowBackup="true"
@@ -14,10 +16,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".SettingWebViewActivity"></activity>
-        <activity android:name=".MainActivity2" />
-        <activity android:name=".SencondActivity" />
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:fullBackupContent="true">
+        <activity android:name=".SettingWebViewActivity"/>
+        <activity android:name=".WebViewActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +34,11 @@
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="true" />
+
+        <receiver android:name=".DeviceBootReceiver"
+            android:enabled="true"
+            android:exported="true"/>
 
         <service
             android:name=".AlarmService"
