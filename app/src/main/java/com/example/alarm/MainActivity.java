@@ -7,24 +7,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-
-import static android.app.AlarmManager.INTERVAL_DAY;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -33,44 +20,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     Toolbar toolbar;
 
-    // 알람 시간
-    private Calendar calendar;
-    private TimePicker timePicker;
-    private PendingIntent alarmIntent;
-    private AlarmManager alarmManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*drawer layout*/
-        //Hooks
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
-        toolbar = findViewById(R.id.toolbar);
-
-        //Tool bar
-        setSupportActionBar(toolbar);
 
         //Navigation Drawer menu
         navigationView.bringToFront();
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
 
         navigationView.setNavigationItemSelectedListener(this);
 
         navigationView.setCheckedItem(R.id.nav_alarm);
 
-        /*alarm*/
-        this.calendar = Calendar.getInstance();
-        // 현재 날짜 표시
-        displayDate();
+        // TODO : 이거 알림시간 보여주는, 온클 로그인 하는 프레그먼트 만들어서 바꾸자
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingAlarmFragment()).commit();
 
-        this.timePicker = findViewById(R.id.timePicker);
 
-        findViewById(R.id.btnRegist).setOnClickListener(mClickListener);
-        findViewById(R.id.btnUnregist).setOnClickListener(mClickListener);
     }
 
     /*뒤로 가기 버튼으로 드로어 네비게이션 닫기*/
@@ -91,11 +65,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         switch (menuItem.getItemId()){
             case R.id.nav_alarm:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingAlarmFragment()).commit();
                 break;
 
             case R.id.nav_setting:
-                Intent intent = new Intent(MainActivity.this, Setting.class);
-                startActivity(intent);
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
                 break;
 
         }
@@ -103,76 +77,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    /* 날짜 표시 */
-    private void displayDate() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        ((TextView) findViewById(R.id.txtDate)).setText(format.format(this.calendar.getTime()));
-    }
 
-    /* 알람 등록 */
-
-    private void Regist() {
-        // 알람 시간 설정
-        calendar.setTimeInMillis(System.currentTimeMillis());
-
-        this.calendar.set(Calendar.HOUR_OF_DAY, this.timePicker.getHour());
-        this.calendar.set(Calendar.MINUTE, this.timePicker.getMinute());
-        this.calendar.set(Calendar.SECOND, 0);
-
-        // Receiver 설정
-        Intent intent = new Intent(this, AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // 알람 설정
-        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        if (calendar.before(Calendar.getInstance())){
-            calendar.add(Calendar.DATE, 1);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            }
-            else {
-                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY, alarmIntent);
-            }
-        }
-        else{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            }
-            else {
-                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY, alarmIntent);
-            }
-        }
-
-        // Toast 보여주기 (알람 시간 표시)
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        Toast.makeText(this, "Alarm : " + format.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
-    }
-
-    private void Unregist() {
-        Intent intent = new Intent (this,AlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        alarmManager.cancel(pendingIntent);
-
-        //Toast 보여주기
-        Toast.makeText(this, "알람이 해지되었습니다.", Toast.LENGTH_SHORT).show();
-    }
-
-    View.OnClickListener mClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-
-                case R.id.btnRegist:
-                    // 알람 등록
-                    Regist();
-                    break;
-
-                case R.id.btnUnregist:
-                    Unregist();
-                    break;
-
-            }
-        }
-    };
 }
