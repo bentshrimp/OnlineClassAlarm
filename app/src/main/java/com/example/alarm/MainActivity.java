@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setCheckedItem(R.id.nav_alarm);
 
-        // TODO : 이거 알림시간 보여주는, 온클 로그인 하는 프레그먼트 만들어서 바꾸자
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingAlarmFragment()).commit();
+        // 설정알람시각 + 로그인 버튼 프레그먼트
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new MainFragment()).commit();
 
 
     }
@@ -64,13 +64,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
     {
         switch (menuItem.getItemId()){
-            case R.id.nav_alarm:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingAlarmFragment()).commit();
+            case R.id.nav_main:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new MainFragment()).commit();
                 break;
 
             case R.id.nav_setting:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingsFragment()).commit();
                 break;
+
+            case R.id.nav_alarm:
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, new SettingAlarmFragment()).commit();
+                break;
+
+
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);

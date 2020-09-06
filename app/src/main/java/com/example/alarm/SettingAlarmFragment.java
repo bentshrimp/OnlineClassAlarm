@@ -1,9 +1,11 @@
 package com.example.alarm;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -49,7 +51,7 @@ public class SettingAlarmFragment extends Fragment {
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_setting_alarm, container, false);
         
         /*alarm*/
-        this.calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
 
         // 현재 날짜 표시
         displayDate(viewGroup);
@@ -77,7 +79,7 @@ public class SettingAlarmFragment extends Fragment {
     /* 날짜 표시 */
     private void displayDate(ViewGroup viewGroup) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        ((TextView) viewGroup.findViewById(R.id.txtDate)).setText(format.format(this.calendar.getTime()));
+        ((TextView) viewGroup.findViewById(R.id.txtDate)).setText(format.format(calendar.getTime()));
     }
 
     /* 알람 등록 */
@@ -86,9 +88,13 @@ public class SettingAlarmFragment extends Fragment {
         // 알람 시간 설정
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        this.calendar.set(Calendar.HOUR_OF_DAY, this.timePicker.getHour());
-        this.calendar.set(Calendar.MINUTE, this.timePicker.getMinute());
-        this.calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, this.timePicker.getHour());
+        calendar.set(Calendar.MINUTE, this.timePicker.getMinute());
+        calendar.set(Calendar.SECOND, 0);
+
+        @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = context.getSharedPreferences("school", Context.MODE_PRIVATE).edit();
+        editor.putString("alarm_time", timePicker.getHour()+" : "+timePicker.getMinute());
+        editor.apply();
 
         // Receiver 설정
         Intent intent = new Intent(context, AlarmReceiver.class);
