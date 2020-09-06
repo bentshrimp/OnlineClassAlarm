@@ -98,6 +98,7 @@ public class SettingAlarmFragment extends Fragment {
     /* 알람 등록 */
 
     private void register() {
+
         // 알람 시간 설정
         calendar.setTimeInMillis(System.currentTimeMillis());
 
