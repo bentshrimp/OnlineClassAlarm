@@ -34,6 +34,9 @@ public class AlarmActivity extends AppCompatActivity {
                 | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
 
+    AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+    audioManager.setStreamVolume(AudioManager.STREAM_RING,(audioManager.getStreamMaxVolume(AudioManager.STREAM_RING)), AudioManager.FLAG_PLAY_SOUND);
+
         // 알람음 재생
         this.mediaPlayer = MediaPlayer.create(this, R.raw.ring_tone);
         this.mediaPlayer.setLooping(true);

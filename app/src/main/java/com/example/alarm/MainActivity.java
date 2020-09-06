@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.setCheckedItem(R.id.nav_alarm);
+        navigationView.setCheckedItem(R.id.nav_main);
 
         // 설정알람시각 + 로그인 버튼 프레그먼트
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new MainFragment()).commit();
