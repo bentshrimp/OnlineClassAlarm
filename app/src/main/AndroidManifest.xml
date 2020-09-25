@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LoginWebViewActivity"></activity>
+
+        <activity android:name=".LoginWebViewActivity" />
         <activity android:name=".SettingWebViewActivity" />
         <activity android:name=".WebViewActivity" />
         <activity android:name=".MainActivity">
@@ -29,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AlarmActivity" />
 
         <receiver
             android:name=".AlarmReceiver"
@@ -38,13 +38,7 @@
         <receiver
             android:name=".DeviceBootReceiver"
             android:enabled="true"
-            android:exported="true" />
-
-        <service
-            android:name=".AlarmService"
-            android:enabled="true" />
-
-        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+            android:exported="true" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />

@@ -97,7 +97,7 @@ public class SettingAlarmFragment extends Fragment {
 
     /* 알람 등록 */
 
-    private void register() {
+    public void register() {
 
         // 알람 시간 설정
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -117,20 +117,20 @@ public class SettingAlarmFragment extends Fragment {
         alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         if (calendar.before(Calendar.getInstance())){
             calendar.add(Calendar.DATE, 1);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+/*            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             }
-            else {
-                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY, alarmIntent);
-            }
+            else {*/
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY, pendingIntent);
+            /*}*/
         }
         else{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            }
-            else {
-                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY, alarmIntent);
-            }
+            }*/
+           /* else {*/
+                alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY, pendingIntent);
+           /* }*/
         }
 
         // Toast 보여주기 (알람 시간 표시)
@@ -138,7 +138,7 @@ public class SettingAlarmFragment extends Fragment {
         Toast.makeText(context, "Alarm : " + format.format(calendar.getTime()), Toast.LENGTH_SHORT).show();
     }
 
-    private void unRegister() {
+    public void unRegister() {
         Intent intent = new Intent (context.getApplicationContext(), AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
