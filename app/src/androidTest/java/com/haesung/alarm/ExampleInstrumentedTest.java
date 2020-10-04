@@ -1,4 +1,4 @@
-package com.example.alarm;
+package com.haesung.alarm;
 
 import android.content.Context;
 

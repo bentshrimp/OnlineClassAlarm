@@ -1,4 +1,4 @@
-package com.example.alarm;
+package com.haesung.alarm;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,7 +22,6 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
 
 import static android.app.AlarmManager.INTERVAL_DAY;
 import static android.content.Context.ALARM_SERVICE;

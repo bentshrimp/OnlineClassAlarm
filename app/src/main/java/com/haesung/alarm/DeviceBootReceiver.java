@@ -1,4 +1,4 @@
-package com.example.alarm;
+package com.haesung.alarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
