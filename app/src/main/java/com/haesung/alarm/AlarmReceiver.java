@@ -61,10 +61,10 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
 
-                .setTicker("{Time to watch some cool stuff!}")
+                .setTicker("온라인 클래스 출석하기!")
                 .setContentTitle("온클 출석 도우미")
-                .setContentText("EBS 온라인클래스 출석하기")
-                .setContentInfo("INFO")
+                .setContentText("")
+                .setContentInfo("Quest")
                 .setContentIntent(pendingI);
 
         if (notificationManager != null) {
