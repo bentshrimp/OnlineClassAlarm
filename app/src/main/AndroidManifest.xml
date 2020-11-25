@@ -19,7 +19,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name="com.haesung.alarm.LoginWebViewActivity" />
         <activity android:name="com.haesung.alarm.SettingWebViewActivity" />
         <activity android:name="com.haesung.alarm.WebViewActivity" />
         <activity android:name="com.haesung.alarm.MainActivity">
@@ -38,7 +37,9 @@
         <receiver
             android:name="com.haesung.alarm.DeviceBootReceiver"
             android:enabled="true"
-            android:exported="true" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+            android:exported="true" />
+
+        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713" />

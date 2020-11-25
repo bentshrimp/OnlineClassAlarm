@@ -51,7 +51,8 @@ public class MainFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, LoginWebViewActivity.class);
+                //TODO
+                Intent intent = new Intent(context, WebViewActivity.class);
                 startActivity(intent);
             }
         });

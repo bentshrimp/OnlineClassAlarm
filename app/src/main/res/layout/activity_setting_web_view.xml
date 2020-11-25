@@ -10,16 +10,16 @@
         android:id="@+id/settingWebView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/storeButton"
+        app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/storeButton"
+        android:id="@+id/save_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="저장 후 나가기"
+        android:text="학교 입력 후 클릭!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

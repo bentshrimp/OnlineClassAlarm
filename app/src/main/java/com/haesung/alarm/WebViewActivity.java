@@ -11,16 +11,27 @@ import android.os.Bundle;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 public class WebViewActivity extends AppCompatActivity{
 
     WebView webView;
 
-    String attendUrl;
+    String schoolUrl;
+    String loginPageUrl;
+    String classUrl;
+
+    String id;
+    String pw;
+    String loginWay;
     String comment;
+
+    Login login;
 
     @SuppressLint("SetJavaScriptEnabled")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -30,54 +41,74 @@ public class WebViewActivity extends AppCompatActivity{
         setContentView(R.layout.activity_web_view);
 
         SharedPreferences sharedPref = getSharedPreferences("school", Context.MODE_PRIVATE);
-        attendUrl = sharedPref.getString("attend_url","");
+        schoolUrl = sharedPref.getString("my_school","");
+        loginPageUrl = sharedPref.getString("login_page","");
+        id = sharedPref.getString("id","");
+        pw = sharedPref.getString("password","");
+        loginWay = sharedPref.getString("login_way","");
+        classUrl = sharedPref.getString("attend_url","");
         comment = sharedPref.getString("comment","");
-
+        selectLoginWay();
         initWebView();
+    }
 
-        webView.loadUrl(attendUrl);
+    public void selectLoginWay(){
 
+        switch (loginWay) {
+            case "ebs":
+                login = new EbsLogin(webView, schoolUrl, loginPageUrl, id, pw, classUrl, comment);
+                break;
+
+            case "kakao":
+                login = new KakaoLogin(webView, schoolUrl, loginPageUrl, id, pw, classUrl, comment);
+                break;
+
+            default:
+
+        }
     }
 
     @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
-    public void initWebView(){
+    public void initWebView() {
         webView = findViewById(R.id.webView);
+        webView.clearHistory();
+        webView.clearCache(true);
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
         webView.setWebViewClient(new myWebClient());
         webView.setWebChromeClient(new myWebChromeClient());
+
+        webView.loadUrl(schoolUrl);
     }
 
     public class myWebClient extends WebViewClient {
-        int processNum = 0;
+
+        int num=0;
+
+        int errorCnt=0;
+
         @Override
         public void onPageFinished(WebView view, String url) {
-            sleep(500);
-            switch (processNum){
-                case 0:
-                    view.loadUrl("javascript:document.getElementsByClassName('class_nm_ellipsis')[0].click()");
-                    processNum++;
-                    break;
-                case 1:
-                    view.loadUrl("javascript:function afterLoad() {"
-                            + "document.getElementsByName('cmmntsCn')[0].value = '"+comment+"';"
-                            + "};"
-                            + "afterLoad();");
-                    sleep(100);
-                    view.loadUrl("javascript:fn_commentSave(null,'','369307');");
-                    processNum++;
-                    break;
-                default:
-            }
+            sleep();
+            login.attend(num);
+            num++;
         }
 
-        public void sleep(int millis){
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            if(errorCnt<=3){
+                login.attend(--num);
+                errorCnt++;
+            }
+            super.onReceivedError(view, request, error);
+        }
+
+        public void sleep(){
             try {
-                Thread.sleep(millis);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

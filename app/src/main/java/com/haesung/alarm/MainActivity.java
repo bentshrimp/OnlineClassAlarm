@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    /* 애드뷰 */
     public void addAd(){
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
