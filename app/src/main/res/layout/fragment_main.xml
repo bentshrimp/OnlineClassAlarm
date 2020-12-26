@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainFragment">
+    tools:context="com.haesung.display.MainFragment">
 
 
     <TextView
@@ -20,24 +20,29 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="*사용방법*
-\n1. 온라인 클래스 설정 탭에서 설정을 진행해주세요
-\n2. 알람을 설정하여 주세요
-\n3. 알람이 울리고 출석 버튼을 누르면 자동으로 출석이 진행됩니다
-\n\n*주의사항*\n다른 페이지에서 로그인을 진행했다면,\n 아래의 로그인 버튼을 눌러 다시 로그인을 해야 \n 자동출석 알람이 정상적으로 작동합니다"
-        />
-
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
-        android:text="온라인 클래스 로그인 하기" />
+        android:text="온라인 클래스 출석" />
+
+    <Button
+        android:id="@+id/selfCheckButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="자가진단 하기" />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/unregisterButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="알람 해제하기" />
+
+
 
 </LinearLayout>

@@ -1,15 +1,20 @@
-package com.haesung.alarm;
+package com.haesung.web;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.webkit.CookieManager;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -18,20 +23,15 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.haesung.alarm.R;
+
 public class WebViewActivity extends AppCompatActivity{
 
     WebView webView;
 
     String schoolUrl;
-    String loginPageUrl;
     String classUrl;
-
-    String id;
-    String pw;
-    String loginWay;
     String comment;
-
-    Login login;
 
     @SuppressLint("SetJavaScriptEnabled")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -42,80 +42,69 @@ public class WebViewActivity extends AppCompatActivity{
 
         SharedPreferences sharedPref = getSharedPreferences("school", Context.MODE_PRIVATE);
         schoolUrl = sharedPref.getString("my_school","");
-        loginPageUrl = sharedPref.getString("login_page","");
-        id = sharedPref.getString("id","");
-        pw = sharedPref.getString("password","");
-        loginWay = sharedPref.getString("login_way","");
         classUrl = sharedPref.getString("attend_url","");
         comment = sharedPref.getString("comment","");
-        selectLoginWay();
+
         initWebView();
+        webView.loadUrl(classUrl);
     }
 
-    public void selectLoginWay(){
-
-        switch (loginWay) {
-            case "ebs":
-                login = new EbsLogin(webView, schoolUrl, loginPageUrl, id, pw, classUrl, comment);
-                break;
-
-            case "kakao":
-                login = new KakaoLogin(webView, schoolUrl, loginPageUrl, id, pw, classUrl, comment);
-                break;
-
-            default:
-
-        }
-    }
-
-    @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
-    public void initWebView() {
+    @SuppressLint("SetJavaScriptEnabled")
+    public void initWebView(){
         webView = findViewById(R.id.webView);
-        webView.clearHistory();
-        webView.clearCache(true);
+
+        webView.canGoForward();
+        webView.canGoBack();
+        webView.setWebViewClient(new MyWebClient());
+        webView.setWebChromeClient(new MyWebChromeClient());
 
         WebSettings webSettings = webView.getSettings();
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-
-        webView.setWebViewClient(new myWebClient());
-        webView.setWebChromeClient(new myWebChromeClient());
-
-        webView.loadUrl(schoolUrl);
     }
 
-    public class myWebClient extends WebViewClient {
-
-        int num=0;
-
-        int errorCnt=0;
-
+    public class MyWebClient extends WebViewClient {
+        int i=0;
         @Override
         public void onPageFinished(WebView view, String url) {
-            sleep();
-            login.attend(num);
-            num++;
-        }
-
-        @Override
-        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-            if(errorCnt<=3){
-                login.attend(--num);
-                errorCnt++;
+            if(i==0){
+                webView.loadUrl("javascript:document.getElementsByClassName('class_nm_ellipsis')[0].click()");
+                i++;
+            }else if(i==1){
+                sleep();
+                webView.loadUrl("javascript:function afterLoad() {"
+                        + "document.getElementsByName('cmmntsCn')[0].value = '"+comment+"';"
+                        + "};"
+                        + "afterLoad();");
+                sleep();
+                webView.loadUrl("javascript:document.getElementsByClassName('submit')[0].click()");
+                i++;
             }
-            super.onReceivedError(view, request, error);
         }
 
         public void sleep(){
             try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
+                Thread.sleep(200);
+            }catch (InterruptedException e){
                 e.printStackTrace();
             }
         }
+
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            super.onReceivedError(view, request, error);
+            Toast.makeText(getApplicationContext(), "로그인이 되지 않음", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                return false;
+            }
     }
 
-    public static class myWebChromeClient extends WebChromeClient {
+    public static class MyWebChromeClient extends WebChromeClient {
         @Override
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
             result.confirm();

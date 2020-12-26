@@ -1,4 +1,4 @@
-package com.haesung.alarm;
+package com.haesung.setting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,8 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.CookieManager;
-import android.webkit.JsPromptResult;
-import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -17,28 +15,18 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.haesung.alarm.R;
+
 public class SettingWebViewActivity extends AppCompatActivity {
 
     WebView webView;
 
-    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_web_view);
 
-        webView = findViewById(R.id.settingWebView);
-        webView.clearHistory();
-        webView.clearCache(true);
-        webView.clearFormData();
-
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-
-        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient());
-
+        initWebView();
         webView.loadUrl("https://oc.ebssw.kr/");
 
         final Button saveButton = findViewById(R.id.save_button);
@@ -46,7 +34,8 @@ public class SettingWebViewActivity extends AppCompatActivity {
             int processNum = 0;
             @Override
             public void onClick(View view) {
-                @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor = getSharedPreferences("school", Context.MODE_PRIVATE).edit();
+                @SuppressLint("CommitPrefEdits")
+                SharedPreferences.Editor editor = getSharedPreferences("school", Context.MODE_PRIVATE).edit();
 
                 switch (processNum){
                     case 0 :
@@ -54,25 +43,34 @@ public class SettingWebViewActivity extends AppCompatActivity {
                         editor.apply();
                         Toast.makeText(SettingWebViewActivity.this, "학교 정보 저장됨"+processNum, Toast.LENGTH_SHORT).show();
                         processNum++;
-                        saveButton.setText("로그인 화면에서 클릭!");
+                        saveButton.setText("출석부 목록에서 클릭");
                         break;
 
                     case 1:
-                        editor.putString("login_page",webView.getUrl());
-                        Toast.makeText(SettingWebViewActivity.this, "로그인 사이트 정보 저장됨"+processNum, Toast.LENGTH_SHORT).show();
-                        editor.apply();
-                        processNum++;
-                        saveButton.setText("출석부 화면에서 클릭!");
-                        break;
-
-                    case 2:
                         editor.putString("attend_url", webView.getUrl());
                         editor.apply();
                         processNum++;
-                        Toast.makeText(SettingWebViewActivity.this, "출석부 정보 저장됨 -끝-"+processNum, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SettingWebViewActivity.this, "출석부 정보 저장됨"+processNum, Toast.LENGTH_SHORT).show();
+                        CookieManager.getInstance().flush();
                         break;
                 }
             }
         });
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
+    public void initWebView(){
+        webView = findViewById(R.id.settingWebView);
+        webView.clearHistory();
+        webView.clearCache(true);
+        webView.clearFormData();
+        CookieManager.getInstance().removeAllCookies(null);
+
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setDomStorageEnabled(true);
+
+        webView.setWebViewClient(new WebViewClient());
+        webView.setWebChromeClient(new WebChromeClient());
     }
 }

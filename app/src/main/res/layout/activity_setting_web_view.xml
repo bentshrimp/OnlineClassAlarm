@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingWebViewActivity">
+    tools:context="com.haesung.setting.SettingWebViewActivity">
 
     <WebView
         android:id="@+id/settingWebView"
@@ -19,7 +19,7 @@
         android:id="@+id/save_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="학교 입력 후 클릭!"
+        android:text="학교 입력 후 클릭"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
