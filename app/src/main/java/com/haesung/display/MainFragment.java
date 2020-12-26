@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -40,10 +41,16 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         this.context = context;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
 
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -56,7 +63,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         if (alarmTime.getBytes().length<=0){
             alarmTimeTextView.setText("알람이 없음");
         }else{
-            alarmTimeTextView.setText("알람시각. "+alarmTime);
+            alarmTimeTextView.setText("알람시각: "+alarmTime);
 
         }
 

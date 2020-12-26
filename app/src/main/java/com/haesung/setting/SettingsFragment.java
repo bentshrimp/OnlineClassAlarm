@@ -53,6 +53,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         ViewGroup viewGroup = (ViewGroup) inflater.inflate(R.layout.fragment_settings, container, false);
 
         comment = viewGroup.findViewById(R.id.comment);

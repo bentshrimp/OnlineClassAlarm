@@ -47,6 +47,7 @@ public class WebViewActivity extends AppCompatActivity{
 
         initWebView();
         webView.loadUrl(classUrl);
+
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -62,6 +63,7 @@ public class WebViewActivity extends AppCompatActivity{
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
+        webSettings.setSupportMultipleWindows(true);
     }
 
     public class MyWebClient extends WebViewClient {
