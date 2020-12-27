@@ -5,26 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background"
     tools:context="com.haesung.display.MainFragment">
 
 
     <TextView
         android:id="@+id/alarm_time"
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
         android:layout_marginBottom="30dp"
         android:gravity="center"
         android:text="TextView"
-        android:textColor="#000000"
-        android:textSize="30sp"
+        android:textColor="#dbe6f6"
+        android:textSize="40sp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/loginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
         android:text="온라인 클래스 출석" />
 
@@ -32,17 +33,16 @@
         android:id="@+id/selfCheckButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:text="자가진단 하기" />
 
     <Button
-        android:layout_marginTop="20dp"
         android:id="@+id/unregisterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:text="알람 해제하기" />
-
 
 
 </LinearLayout>

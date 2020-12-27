@@ -58,11 +58,11 @@ public class MainFragment extends Fragment implements View.OnClickListener{
 
         sharedPref = context.getSharedPreferences("school", Context.MODE_PRIVATE);
 
-        String alarmTime = sharedPref.getString("alarm_time","");
+        String alarmTime = sharedPref.getString("alarm_time","");   // SettingFragment에서 저장한 시간을 보여줌
         assert alarmTime != null;
-        if (alarmTime.getBytes().length<=0){
+        if (alarmTime.getBytes().length<=0){            //  alarmTime 의 길이가 0이하 => 저장된 알람 시간이 없음
             alarmTimeTextView.setText("알람이 없음");
-        }else{
+        }else{                                          // 알람 시간이 저장됨
             alarmTimeTextView.setText("알람시각: "+alarmTime);
 
         }
@@ -81,15 +81,15 @@ public class MainFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.loginButton:
-                Intent intent = new Intent(context, AlarmLoginActivity.class);
+            case R.id.loginButton:                                              // 로그인 버튼을 누르면
+                Intent intent = new Intent(context, AlarmLoginActivity.class);  // 온라인클래스 로그인 창으로 이동
                 startActivity(intent);
                 break;
 
-            case R.id.unregisterButton:
-                if (Objects.equals(sharedPref.getString("alarm_time", ""), "")){
+            case R.id.unregisterButton:                                         // 알람 해지 버튼을 누르면
+                if (Objects.equals(sharedPref.getString("alarm_time", ""), "")){ // 이전에 설정된 알람이 없었다면
                     Toast.makeText(context, "설정된 알람이 없습니다.", Toast.LENGTH_SHORT).show();
-                }else{
+                }else{                                                                      // 이전에 설정된 알람이 있었다면
                     alarmUnRegister();
                 }
                 break;
@@ -106,12 +106,12 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         Intent intent = new Intent (context.getApplicationContext(), AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        sharedPref.edit().putString("alarm_time", "").apply();
+        sharedPref.edit().putString("alarm_time", "").apply();  // 알람 시간을 지움
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        alarmManager.cancel(pendingIntent);
+        alarmManager.cancel(pendingIntent);                            // 알람 취소
 
-        alarmTimeTextView.setText("알람이 없음");
+        alarmTimeTextView.setText("알람이 없음");                       // 알람 시간 대신 "알람이 없음"을 표시
         Toast.makeText(getContext(), "알람이 해지되었습니다.", Toast.LENGTH_SHORT).show();
     }
 }
