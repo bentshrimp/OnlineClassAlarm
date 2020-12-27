@@ -18,12 +18,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.haesung.web.SelfCheckActivity"></activity>
+        <activity android:name="com.haesung.web.SelfCheckActivity"/>
         <activity android:name="com.haesung.web.LoginWebViewActivity" />
         <activity android:name="com.haesung.display.AlarmLoginActivity" />
         <activity android:name="com.haesung.setting.SettingWebViewActivity" />
         <activity android:name="com.haesung.web.WebViewActivity" />
-        <activity android:name="com.haesung.display.MainActivity">
+        <activity android:windowSoftInputMode="adjustNothing"
+            android:name="com.haesung.display.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
