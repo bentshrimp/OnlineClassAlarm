@@ -11,60 +11,90 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:orientation="vertical">
 
         <TextView
-            style="@style/Text"
-            android:layout_width="wrap_content"
+            android:id="@+id/alert1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="자가진단 해야 할 것 같다" />
-
-        <Button
-            android:id="@+id/selfCheckButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="자가진단하기" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginVertical="30dp">
+            android:text="주의사항 : 로그인이 안된 상태에서 출석할 시에
+흰색 빈 화면이 뜹니다." />
 
         <TextView
-            style="@style/Text"
-            android:layout_width="wrap_content"
+            android:id="@+id/alert2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="출석하러가기" />
-
-        <Button
-            android:id="@+id/attendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="출석부 열기" />
+            android:text="이 경우 출석이 되지 않은 것이므로 로그인을 먼저 해주세요" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center">
 
-        <TextView
-            style="@style/Text"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="만약 흰 화면이 뜬다면 로그인 되어있는지 확인하기" />
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/loginButton"
-            android:layout_width="wrap_content"
+            <TextView
+                style="@style/Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="출석 전에 로그인 되어있는지 확인하기" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="로그인 페이지 열기" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="로그인 페이지 열기" />
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginVertical="30dp">
+
+            <TextView
+                style="@style/Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="출석하러가기" />
+
+            <Button
+                android:id="@+id/attendButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="출석부 열기" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                style="@style/Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자가진단 해야 할 것 같다" />
+
+            <Button
+                android:id="@+id/selfCheckButton"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="자가진단하기" />
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>
