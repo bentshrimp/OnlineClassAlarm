@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.haesung.alarm.R;
 import com.haesung.web.LoginWebViewActivity;
 import com.haesung.web.SelfCheckActivity;
-import com.haesung.web.WebViewActivity;
+import com.haesung.web.AttendWebActivity;
 
 public class AlarmLoginActivity extends AppCompatActivity {
 
@@ -36,7 +36,7 @@ public class AlarmLoginActivity extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AlarmLoginActivity.this, WebViewActivity.class);
+                Intent intent = new Intent(AlarmLoginActivity.this, AttendWebActivity.class);
                 startActivity(intent);
             }
         });

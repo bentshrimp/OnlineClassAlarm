@@ -27,7 +27,7 @@ public class SettingWebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting_web_view);
 
         initWebView();
-        webView.loadUrl("https://oc.ebssw.kr/");    // EBS온라인클래스 접속
+        webView.loadUrl("https://www.youtube.com");
 
         final Button saveButton = findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -39,18 +39,18 @@ public class SettingWebViewActivity extends AppCompatActivity {
 
                 switch (processNum){
                     case 0 :
-                        editor.putString("my_school",webView.getUrl());         // 우리 학교 온라인클래스 주소 저장
+                        editor.putString("my_school",webView.getUrl());
                         editor.apply();
-                        Toast.makeText(SettingWebViewActivity.this, "학교 정보 저장됨 "+processNum, Toast.LENGTH_SHORT).show();
-                        processNum++;                   // processNum 1증가
+                        Toast.makeText(SettingWebViewActivity.this, "학교 정보 저장됨"+processNum, Toast.LENGTH_SHORT).show();
+                        processNum++;
                         saveButton.setText("출석부 목록에서 클릭");
                         break;
 
                     case 1:
-                        editor.putString("attend_url", webView.getUrl());       // 우리 반 클래스 출석부 주소 저장
+                        editor.putString("attend_url", webView.getUrl());
                         editor.apply();
-                        processNum++;                   // processNum 1증가
-                        Toast.makeText(SettingWebViewActivity.this, "출석부 정보 저장됨 "+processNum, Toast.LENGTH_SHORT).show();
+                        processNum++;
+                        Toast.makeText(SettingWebViewActivity.this, "출석부 정보 저장됨"+processNum, Toast.LENGTH_SHORT).show();
                         CookieManager.getInstance().flush();
                         break;
                 }

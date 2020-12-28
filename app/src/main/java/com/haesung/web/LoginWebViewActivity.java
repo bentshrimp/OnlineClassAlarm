@@ -28,22 +28,13 @@ public class LoginWebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_web_view);
+        setContentView(R.layout.activity_web_view);
 
         SharedPreferences sharedPref = getSharedPreferences("school", Context.MODE_PRIVATE);
         schoolUrl = sharedPref.getString("my_school","");
 
         initWebView();
-        webView.loadUrl(schoolUrl);     // 우리 학교 온라인클래스 접속
-
-        Button button = findViewById(R.id.exitButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CookieManager.getInstance().flush();
-                finish();
-            }
-        });
+        webView.loadUrl(schoolUrl);
     }
 
     @SuppressLint("SetJavaScriptEnabled")

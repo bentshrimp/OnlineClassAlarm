@@ -22,7 +22,7 @@
         <activity android:name="com.haesung.web.LoginWebViewActivity" />
         <activity android:name="com.haesung.display.AlarmLoginActivity" />
         <activity android:name="com.haesung.web.SettingWebViewActivity" />
-        <activity android:name="com.haesung.web.WebViewActivity" />
+        <activity android:name="com.haesung.web.AttendWebActivity" />
         <activity android:windowSoftInputMode="adjustNothing"
             android:name="com.haesung.display.MainActivity">
             <intent-filter>

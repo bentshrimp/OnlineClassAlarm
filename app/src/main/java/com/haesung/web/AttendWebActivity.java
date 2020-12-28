@@ -5,32 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.http.SslError;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.WindowManager;
-import android.webkit.CookieManager;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.haesung.alarm.R;
 
-public class WebViewActivity extends AppCompatActivity{
+public class AttendWebActivity extends AppCompatActivity{
 
     WebView webView;
 
-    String schoolUrl;
     String classUrl;
     String comment;
 
@@ -39,12 +29,9 @@ public class WebViewActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_web_view);
 
         SharedPreferences sharedPref = getSharedPreferences("school", Context.MODE_PRIVATE);
-        schoolUrl = sharedPref.getString("my_school","");
         classUrl = sharedPref.getString("attend_url","");
         comment = sharedPref.getString("comment","");
 
@@ -56,17 +43,16 @@ public class WebViewActivity extends AppCompatActivity{
     @SuppressLint("SetJavaScriptEnabled")
     public void initWebView(){
         webView = findViewById(R.id.webView);
-
-        webView.canGoForward();
         webView.canGoBack();
+        webView.canGoForward();
         webView.setWebViewClient(new MyWebClient());
         webView.setWebChromeClient(new MyWebChromeClient());
 
         WebSettings webSettings = webView.getSettings();
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
-        webSettings.setSupportMultipleWindows(true);
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+
     }
 
     public class MyWebClient extends WebViewClient {
@@ -95,21 +81,9 @@ public class WebViewActivity extends AppCompatActivity{
                 e.printStackTrace();
             }
         }
-
-        @Override
-        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-            super.onReceivedError(view, request, error);
-            Toast.makeText(getApplicationContext(), "로그인이 되지 않음", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                return false;
-            }
     }
 
-    public static class MyWebChromeClient extends WebChromeClient {
+    public class MyWebChromeClient extends WebChromeClient{
         @Override
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
             result.confirm();
