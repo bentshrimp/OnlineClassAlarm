@@ -1,4 +1,4 @@
-package com.haesung.setting;
+package com.haesung.web;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -72,5 +72,5 @@ public class SettingWebViewActivity extends AppCompatActivity {
 
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
+        }
     }
-}

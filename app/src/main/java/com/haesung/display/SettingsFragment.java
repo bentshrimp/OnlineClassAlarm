@@ -1,4 +1,4 @@
-package com.haesung.setting;
+package com.haesung.display;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -16,12 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.haesung.alarm.AlarmReceiver;
 import com.haesung.alarm.R;
+import com.haesung.web.SettingWebViewActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

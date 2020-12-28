@@ -4,62 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/asleep"
-    tools:context="com.haesung.setting.SettingsFragment">
-
+    tools:context="com.haesung.setting.SettingsFragment"
+    android:orientation="vertical">
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingRight="10dp"
-    android:paddingLeft="10dp"
-    android:scrollbars="none">
+    android:scrollbars="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingBottom="20dp"
         style="@style/layout">
 
         <LinearLayout
             style="@style/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout"
-            android:padding="15dp"
             android:orientation="vertical">
 
             <TextView
                 style="@style/Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:text="출석부 정보 저장" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="20dp"
-                android:text="1) 학교 선택 후 버튼 클릭"
+                android:text=" 1)학교 선택 후 버튼 클릭"
                 android:textColor="#000000"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="2) 출석부 화면에서 버튼 클릭"
+                android:text=" 2)출석부 화면에서 버튼 클릭"
                 android:textColor="#000000"/>
 
             <Button
                 android:id="@+id/webView_button"
-                android:background="@drawable/button_selector1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:ems="10"
-                android:textColor="#ffffff"
                 android:text="출석부 정보 저장하러 가기" />
 
         </LinearLayout>
@@ -67,8 +53,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout"
-            android:padding="15dp"
             android:orientation="vertical"
             style="@style/layout">
 
@@ -76,17 +60,14 @@
                 style="@style/Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:text="출석문구 입력" />
 
             <EditText
                 android:id="@+id/comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
                 android:ems="10"
-                android:hint="출석문구를 입력하세요"
+                android:hint="출석"
                 android:inputType="text" />
 
         </LinearLayout>
@@ -94,8 +75,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout"
-            android:padding="15dp"
             android:orientation="vertical"
             style="@style/layout">
 
@@ -103,7 +82,6 @@
                 style="@style/Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:text="출석 시간 설정" />
 
             <TimePicker
@@ -112,19 +90,14 @@
                 android:layout_height="wrap_content"
                 android:timePickerMode="spinner" />
 
-            <Button
-                android:id="@+id/save_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/button_selector1"
-                android:textColor="#ffffff"
-                android:text="설정 저장" />
-
         </LinearLayout>
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="설정 저장" />
 
     </LinearLayout>
-
 </ScrollView>
 
 </LinearLayout>

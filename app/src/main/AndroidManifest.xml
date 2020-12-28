@@ -20,25 +20,15 @@
         android:usesCleartextTraffic="true">
         <activity android:name="com.haesung.web.SelfCheckActivity"/>
         <activity android:name="com.haesung.web.LoginWebViewActivity" />
-        <activity android:name="com.haesung.display.AlarmLoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name="com.haesung.setting.SettingWebViewActivity" />
-        <activity android:name="com.haesung.web.WebViewActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.haesung.display.MainActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-            </intent-filter>
-        </activity>
-        <activity android:name="com.haesung.display.SplashActivity">
+        <activity android:name="com.haesung.display.AlarmLoginActivity" />
+        <activity android:name="com.haesung.web.SettingWebViewActivity" />
+        <activity android:name="com.haesung.web.WebViewActivity" />
+        <activity android:windowSoftInputMode="adjustNothing"
+            android:name="com.haesung.display.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
