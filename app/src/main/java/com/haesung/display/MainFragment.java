@@ -61,9 +61,9 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         String alarmTime = sharedPref.getString("alarm_time","");   // SettingFragment에서 저장한 시간을 보여줌
         assert alarmTime != null;
         if (alarmTime.getBytes().length<=0){            //  alarmTime 의 길이가 0이하 => 저장된 알람 시간이 없음
-            alarmTimeTextView.setText("알람이 없음");
+            alarmTimeTextView.setText("No Alarm");
         }else{                                          // 알람 시간이 저장됨
-            alarmTimeTextView.setText("알람시각: "+alarmTime);
+            alarmTimeTextView.setText(alarmTime);
 
         }
 
@@ -111,7 +111,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);                            // 알람 취소
 
-        alarmTimeTextView.setText("알람이 없음");                       // 알람 시간 대신 "알람이 없음"을 표시
+        alarmTimeTextView.setText("No Alarm");                       // 알람 시간 대신 "알람이 없음"을 표시
         Toast.makeText(getContext(), "알람이 해지되었습니다.", Toast.LENGTH_SHORT).show();
     }
 }

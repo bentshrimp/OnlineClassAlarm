@@ -4,26 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
+    android:background="@drawable/asleep"
     tools:context="com.haesung.setting.SettingsFragment">
+
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical">
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-
+        android:paddingBottom="20dp"
         style="@style/layout">
 
         <LinearLayout
             style="@style/layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:background="@drawable/layout"
+            android:padding="15dp"
             android:orientation="vertical">
 
             <TextView
@@ -50,10 +54,12 @@
 
             <Button
                 android:id="@+id/webView_button"
+                android:background="@drawable/button_selector1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_margin="10dp"
                 android:ems="10"
+                android:textColor="#ffffff"
                 android:text="출석부 정보 저장하러 가기" />
 
         </LinearLayout>
@@ -61,7 +67,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:background="@drawable/layout"
+            android:padding="15dp"
             android:orientation="vertical"
             style="@style/layout">
 
@@ -87,7 +94,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:background="@drawable/layout"
+            android:padding="15dp"
             android:orientation="vertical"
             style="@style/layout">
 
@@ -104,13 +112,16 @@
                 android:layout_height="wrap_content"
                 android:timePickerMode="spinner" />
 
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_selector1"
+                android:textColor="#ffffff"
+                android:text="설정 저장" />
+
         </LinearLayout>
-        <Button
-            android:id="@+id/save_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="설정 저장" />
 
     </LinearLayout>
 </ScrollView>

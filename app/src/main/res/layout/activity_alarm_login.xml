@@ -5,25 +5,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.haesung.display.AlarmLoginActivity"
+    android:background="@drawable/awake"
     android:orientation="vertical"
+    android:padding="20dp"
     android:gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/alert1"
+            android:id="@+id/warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="주의사항 : 로그인이 안된 상태에서 출석할 시에
-흰색 빈 화면이 뜹니다." />
+            android:textColor="#ffffff"
+            android:fontFamily="@font/bold"
+            android:layout_marginBottom="5dp"
+            android:text="주의사항" />
 
         <TextView
-            android:id="@+id/alert2"
+            android:id="@+id/warning_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_marginStart="0dp"
+            android:text="로그인이 안된 상태에서 출석할 시에 흰색 빈 화면이 뜹니다." />
+
+        <TextView
+            android:id="@+id/warning_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_marginStart="0dp"
             android:text="이 경우 출석이 되지 않은 것이므로 로그인을 먼저 해주세요" />
 
     </LinearLayout>
@@ -31,26 +48,31 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="4"
         android:orientation="vertical"
+        android:background="@drawable/layout"
         android:gravity="center">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <TextView
                 style="@style/Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/bold"
+                android:layout_marginBottom="10dp"
                 android:text="출석 전에 로그인 되어있는지 확인하기" />
 
             <Button
                 android:id="@+id/loginButton"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_selector1"
+                android:textColor="#ffffff"
                 android:text="로그인 페이지 열기" />
 
         </LinearLayout>
@@ -59,19 +81,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:layout_marginVertical="30dp">
 
             <TextView
                 style="@style/Text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="출석하러가기" />
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/bold"
+                android:text="출석하러 가기" />
 
             <Button
                 android:id="@+id/attendButton"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_selector1"
+                android:textColor="#ffffff"
                 android:text="출석부 열기" />
 
         </LinearLayout>
@@ -80,21 +107,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center_horizontal">
 
             <TextView
                 style="@style/Text"
+                android:layout_marginBottom="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="자가진단 해야 할 것 같다" />
+                android:fontFamily="@font/bold"
+                android:text="자가진단하러 가기" />
 
             <Button
                 android:id="@+id/selfCheckButton"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_selector1"
+                android:textColor="#ffffff"
                 android:text="자가진단하기" />
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"/>
 
 </LinearLayout>

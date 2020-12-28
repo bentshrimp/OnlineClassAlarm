@@ -5,44 +5,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background"
+    android:background="@drawable/asleep"
     tools:context="com.haesung.display.MainFragment">
 
+        <TextView
+            android:id="@+id/alarm_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="TextView"
+            android:fontFamily="@font/alarm_time"
+            android:textColor="#ffffff"
+            android:textSize="75dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/alarm_time"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:layout_marginBottom="30dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="#dbe6f6"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:layout_gravity="center_horizontal"
-        android:text="온라인 클래스 출석" />
+        <Button
+            android:id="@+id/loginButton"
+            android:background="@drawable/button_selector1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:text="온라인 클래스 출석" />
 
-    <Button
-        android:id="@+id/selfCheckButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="자가진단 하기" />
+        <Button
+            android:id="@+id/selfCheckButton"
+            android:background="@drawable/button_selector1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:text="자가진단 하기" />
 
-    <Button
-        android:id="@+id/unregisterButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:text="알람 해제하기" />
+        <Button
+            android:id="@+id/unregisterButton"
+            android:background="@drawable/button_selector2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/PINKYRED"
+            android:layout_marginBottom="50dp"
+            android:text="알람 해제하기" />
 
+    </LinearLayout>
 
 </LinearLayout>

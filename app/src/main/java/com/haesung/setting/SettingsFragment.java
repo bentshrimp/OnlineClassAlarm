@@ -120,7 +120,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         calendar.set(Calendar.SECOND, 0);                               // 초는 0
 
         editor.putString("alarm_time", timePicker.getHour()+"시 "+timePicker.getMinute()+"분");
-        editor.apply();                                                 // 설정한 시간을 *시 *분으로 저장
+        editor.apply();                                                 // 설정한 시간을 시: 분으로 저장
 
         Intent intent = new Intent(context, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
