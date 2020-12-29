@@ -34,7 +34,7 @@ public class LoginWebViewActivity extends AppCompatActivity {
         schoolUrl = sharedPref.getString("my_school","");
 
         initWebView();
-        webView.loadUrl(schoolUrl);
+        webView.loadUrl(schoolUrl);     // 우리 학교 온라인클래스 접속
 
         Button button = findViewById(R.id.exitButton);
         button.setOnClickListener(new View.OnClickListener() {

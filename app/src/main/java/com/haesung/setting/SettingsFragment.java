@@ -115,19 +115,19 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
         calendar.setTimeInMillis(System.currentTimeMillis());
 
-        calendar.set(Calendar.HOUR_OF_DAY, this.timePicker.getHour());  // timePicker에서 설정한 시간의 시를 저장
-        calendar.set(Calendar.MINUTE, this.timePicker.getMinute());     // timePicker에서 설정한 시간의 분을 저장
-        calendar.set(Calendar.SECOND, 0);                               // 초는 0
+        calendar.set(Calendar.HOUR_OF_DAY, this.timePicker.getHour());  // timePicker에서 설정한 시간의 시를 가져옴
+        calendar.set(Calendar.MINUTE, this.timePicker.getMinute());     // timePicker에서 설정한 시간의 분을 가져옴
+        calendar.set(Calendar.SECOND, 0);                               // 초는 0으로
 
         editor.putString("alarm_time", timePicker.getHour()+"시 "+timePicker.getMinute()+"분");
-        editor.apply();                                                 // 설정한 시간을 시: 분으로 저장
+        editor.apply();                                                 // 설정한 시간을 ~시 ~분으로 저장
 
         Intent intent = new Intent(context, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-        if (calendar.before(Calendar.getInstance())){
-            calendar.add(Calendar.DATE, 1);
+        if (calendar.before(Calendar.getInstance())){                   // 설정한 시간이 현재보다 이전이라면
+            calendar.add(Calendar.DATE, 1);                         //  내일 이 시간으로
         /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
             }

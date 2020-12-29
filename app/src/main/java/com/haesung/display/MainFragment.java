@@ -111,7 +111,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);                            // 알람 취소
 
-        alarmTimeTextView.setText("No Alarm");                       // 알람 시간 대신 "알람이 없음"을 표시
+        alarmTimeTextView.setText("No Alarm");                       // 알람 시간 대신 알람이 없음을 표시
         Toast.makeText(getContext(), "알람이 해지되었습니다.", Toast.LENGTH_SHORT).show();
     }
 }

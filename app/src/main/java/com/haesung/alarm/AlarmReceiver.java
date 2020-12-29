@@ -62,10 +62,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         builder.setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-
                 .setTicker("온라인 클래스 출석하기!")
                 .setContentTitle("온클 출석 도우미")
-                .setContentText("")
+                .setContentText("온라인클래스 출석하러 가기!")
+                .setSmallIcon(R.drawable.noticon)
                 .setContentInfo("Quest")
                 .setContentIntent(pendingI);
 
