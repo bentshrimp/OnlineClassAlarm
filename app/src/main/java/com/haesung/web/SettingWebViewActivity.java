@@ -27,7 +27,7 @@ public class SettingWebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting_web_view);
 
         initWebView();
-        webView.loadUrl("https://www.youtube.com");
+        webView.loadUrl("https://oc.ebssw.kr/");
 
         final Button saveButton = findViewById(R.id.save_button);
         saveButton.setOnClickListener(new View.OnClickListener() {

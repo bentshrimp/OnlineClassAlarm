@@ -19,15 +19,21 @@ public class SplashActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable(){
-            @Override
-            public void run(){
-                startActivity(new Intent(getApplication(), MainActivity.class));
-                /* 스플래시 액티비티를 스택에서 제거. */
-                SplashActivity.this.finish();
-            }
-        }, SPLASH_DISPLAY_TIME);
+        try {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable(){
+                @Override
+                public void run(){
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
+                }
+            }, SPLASH_DISPLAY_TIME);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            //finish();
+        }
+
     }
 
     @Override
