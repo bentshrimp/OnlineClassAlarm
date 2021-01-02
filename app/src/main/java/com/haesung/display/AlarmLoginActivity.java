@@ -1,13 +1,16 @@
 package com.haesung.display;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.haesung.alarm.R;
 import com.haesung.web.LoginWebViewActivity;
@@ -24,6 +27,11 @@ public class AlarmLoginActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1){
+            LinearLayout ll = (LinearLayout) findViewById(R.id.backGround);
+            ll.setBackgroundColor(ContextCompat.getColor(this, R.color.BACKGROUND2));
+        }
 
         Button button = findViewById(R.id.loginButton);
         button.setOnClickListener(new View.OnClickListener() {
