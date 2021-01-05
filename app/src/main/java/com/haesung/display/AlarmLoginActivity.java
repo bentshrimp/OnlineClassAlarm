@@ -29,8 +29,8 @@ public class AlarmLoginActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1){
-            LinearLayout ll = (LinearLayout) findViewById(R.id.backGround);
-            ll.setBackgroundColor(ContextCompat.getColor(this, R.color.BACKGROUND2));
+            LinearLayout ll = findViewById(R.id.backGround);
+            ll.setBackground(getResources().getDrawable(R.drawable.color_background2,null));
         }
 
         Button button = findViewById(R.id.loginButton);

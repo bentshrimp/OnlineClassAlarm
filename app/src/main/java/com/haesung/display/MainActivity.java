@@ -35,14 +35,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     BottomNavigationView bottomNav;
 
-    @SuppressLint("ResourceType")
+    @SuppressLint({"ResourceType", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O_MR1){
-            LinearLayout ll = (LinearLayout) findViewById(R.id.backGround);
-            ll.setBackgroundColor(ContextCompat.getColor(this, R.color.BACKGROUND1));
+            LinearLayout ll = findViewById(R.id.backGround);
+            ll.setBackground(getResources().getDrawable(R.drawable.color_background, null));
         }
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

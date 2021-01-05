@@ -8,8 +8,8 @@ android {
         applicationId "com.haesung.alarm"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 10
-        versionName "2.4.4"
+        versionCode 12
+        versionName "2.4.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

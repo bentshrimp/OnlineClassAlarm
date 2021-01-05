@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
         } catch (RuntimeException e) {
             e.printStackTrace();
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            //finish();
+            finish();
         }
 
     }
